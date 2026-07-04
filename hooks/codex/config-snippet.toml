@@ -1,0 +1,12 @@
+# TEH hook entries for ~/.codex/config.toml — COPY MANUALLY (see README.md).
+# Codex trust-hash re-approval is expected after adding these.
+# Replace %TEH_HOOK_DIR% with the deployed absolute path, e.g.
+#   C:\Users\<you>\.claude\hooks\teh
+
+[[hooks.PostToolUse]]
+[[hooks.PostToolUse.hooks]]
+command = 'node "%TEH_HOOK_DIR%\post-tool-meter.js" --host codex'
+
+[[hooks.Stop]]
+[[hooks.Stop.hooks]]
+command = 'node "%TEH_HOOK_DIR%\session-end-ledger-writer.js" --host codex'

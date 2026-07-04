@@ -1,0 +1,53 @@
+#!/usr/bin/env node
+'use strict';
+// teh - Token Engineering Harness CLI. Zero dependencies, no network, dry-run
+// everywhere it changes anything. See README.md.
+const path = require('path');
+
+const LIB = path.join(__dirname, '..', 'lib', 'teh');
+const cmd = process.argv[2] || 'help';
+const args = process.argv.slice(3);
+
+const table = {
+  doctor: () => require(path.join(LIB, 'doctor')).run(args),
+  status: () => require(path.join(LIB, 'statuscmd')).run(args),
+  'audit-context': () => require(path.join(LIB, 'audits')).auditContext(args),
+  'audit-mcp': () => require(path.join(LIB, 'audits')).auditMcp(args),
+  'audit-skills': () => require(path.join(LIB, 'audits')).auditSkills(args),
+  install: () => require(path.join(LIB, 'install')).run(args),
+  uninstall: () => require(path.join(LIB, 'install')).uninstall(args),
+  ledger: () => require(path.join(LIB, 'ledger')).run(args),
+  guard: () => require(path.join(LIB, 'guard')).run(args),
+  'pack-github': () => require(path.join(LIB, 'packgithub')).run(args),
+  init: () => { // alias kept for the spec's `teh init` wording
+    console.log('`teh init` is `teh install` here. Preview with:');
+    console.log('  teh install --dry-run   (add --profile integrated|standalone to override detection)');
+  },
+  help: () => {
+    console.log([
+      'teh - Token Engineering Harness (v0.1.0)',
+      '',
+      '  doctor                  environment + install health + drift check',
+      '  status                  live session counters, ledger tail, guard state',
+      '  audit-context           always-loaded file sizes vs budgets',
+      '  audit-mcp               configured MCP servers per surface',
+      '  audit-skills            skill inventory with size flags',
+      '  install [--dry-run]     deploy skills/agents/hooks + marker blocks',
+      '          [--profile integrated|standalone] [--enable-guard]',
+      '  uninstall [--dry-run]   reverse an install from its manifest',
+      '  ledger [--month YYYY-MM] aggregate proxy metrics',
+      '  guard on|off|status     toggle the opt-in command guard',
+      '  pack-github             pre-publication secret/trace scan',
+      '',
+      'Everything is local; nothing talks to a network. Backups land in',
+      '~/.token-engineering-harness/backups/<timestamp>/ before any change.',
+    ].join('\n'));
+  },
+};
+
+if (table[cmd]) {
+  table[cmd]();
+} else {
+  console.log('unknown command: ' + cmd + '  (teh help)');
+  process.exitCode = 1;
+}

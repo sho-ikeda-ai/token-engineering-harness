@@ -1,0 +1,43 @@
+{
+  "_comment": "Example: what the TEH hook entries look like inside ~/.claude/settings.json after `teh install` (paths materialized). Your existing entries are preserved; these are appended per event.",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash|Read|Edit|Write|Agent|Task",
+        "hooks": [
+          { "type": "command", "command": "node \"C:/Users/you/.claude/hooks/teh/post-tool-meter.js\"" }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          { "type": "command", "command": "node \"C:/Users/you/.claude/hooks/teh/session-start-context-report.js\"" }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          { "type": "command", "command": "node \"C:/Users/you/.claude/hooks/teh/session-end-ledger-writer.js\"" }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          { "type": "command", "command": "node \"C:/Users/you/.claude/hooks/teh/pre-compact-template.js\"" }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "node \"C:/Users/you/.claude/hooks/teh/pre-tool-command-guard.js\"" }
+        ]
+      }
+    ]
+  }
+}

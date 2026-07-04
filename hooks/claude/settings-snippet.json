@@ -1,0 +1,43 @@
+{
+  "_comment": "TEH hook entries for ~/.claude/settings.json. `teh install` replaces %TEH_HOOK_DIR% with the deployed hooks directory and appends each entry to the matching hooks.<Event> array (creating it if absent). `teh uninstall` removes exactly the entries whose command contains the TEH hook dir. Never hand-merge blindly: keep existing entries untouched.",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash|Read|Edit|Write|Agent|Task",
+        "hooks": [
+          { "type": "command", "command": "node \"%TEH_HOOK_DIR%/post-tool-meter.js\"" }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          { "type": "command", "command": "node \"%TEH_HOOK_DIR%/session-start-context-report.js\"" }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          { "type": "command", "command": "node \"%TEH_HOOK_DIR%/session-end-ledger-writer.js\"" }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          { "type": "command", "command": "node \"%TEH_HOOK_DIR%/pre-compact-template.js\"" }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "node \"%TEH_HOOK_DIR%/pre-tool-command-guard.js\"" }
+        ]
+      }
+    ]
+  }
+}

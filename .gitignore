@@ -1,0 +1,10 @@
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
+# runtime artifacts (never commit)
+ledger/
+backups/
+.ai/token-ledger/
+dist/
+*.tmp

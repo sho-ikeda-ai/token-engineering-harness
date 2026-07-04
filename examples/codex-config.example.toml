@@ -1,0 +1,13 @@
+# Example: Codex-side TEH wiring inside ~/.codex/config.toml.
+# Agents need no config entry - dropping teh_*.toml into ~/.codex/agents/ is enough.
+# Hooks are OPTIONAL and manual (trust-hash re-approval expected; see hooks/codex/README.md).
+
+# --- optional hooks (replace the path with your deployed hooks dir) ---
+
+[[hooks.PostToolUse]]
+[[hooks.PostToolUse.hooks]]
+command = 'node "C:\Users\you\.claude\hooks\teh\post-tool-meter.js" --host codex'
+
+[[hooks.Stop]]
+[[hooks.Stop.hooks]]
+command = 'node "C:\Users\you\.claude\hooks\teh\session-end-ledger-writer.js" --host codex'
