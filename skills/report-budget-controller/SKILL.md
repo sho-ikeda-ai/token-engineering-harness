@@ -47,6 +47,10 @@ no textbook prose.
 - No progress play-by-play ("now I will...", "let me...") — one status line per direction
   change is enough while working; the final message carries everything that matters.
 - No preamble ("Great question", restating the request) and no closing essays.
+- Before a tool call: at most ONE short sentence of intent. Never narrate the steps
+  you are about to take — the calls themselves show that.
+- No unsolicited supplements: usage tips, file sizes, how-to notes, alternatives —
+  only when asked. Deliver the thing, not the manual.
 - Long detail that genuinely matters → write to a file, link it, summarize in ≤3 lines.
 
 ## Truth compatibility (non-negotiable)
