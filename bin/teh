@@ -17,6 +17,7 @@ const table = {
   install: () => require(path.join(LIB, 'install')).run(args),
   uninstall: () => require(path.join(LIB, 'install')).uninstall(args),
   ledger: () => require(path.join(LIB, 'ledger')).run(args),
+  impact: () => require(path.join(LIB, 'impact')).run(args),
   guard: () => require(path.join(LIB, 'guard')).run(args),
   'pack-github': () => require(path.join(LIB, 'packgithub')).run(args),
   init: () => { // alias kept for the spec's `teh init` wording
@@ -36,6 +37,7 @@ const table = {
       '          [--profile integrated|standalone] [--enable-guard]',
       '  uninstall [--dry-run]   reverse an install from its manifest',
       '  ledger [--month YYYY-MM] aggregate proxy metrics',
+      '  impact [--days N] [--install ISO] aggregate real token usage into impact.html',
       '  guard on|off|status     toggle the opt-in command guard',
       '  pack-github             pre-publication secret/trace scan',
       '',
