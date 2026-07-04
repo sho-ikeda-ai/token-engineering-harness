@@ -5,6 +5,7 @@ Thumbs.db
 # runtime artifacts (never commit)
 ledger/
 backups/
-.ai/token-ledger/
+.ai/
 dist/
 *.tmp
+media/out/

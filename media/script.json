@@ -1,0 +1,36 @@
+{
+  "voice": "en-US-AndrewNeural",
+  "fallback_voice": "en-US-GuyNeural",
+  "segments": [
+    {
+      "id": 1,
+      "slide": ["Is Fable 5", "melting your", "tokens?"],
+      "narration": "Is Fable 5 melting through your tokens? Mine was."
+    },
+    {
+      "id": 2,
+      "slide": ["Token Engineering", "Harness", "", "Full reasoning.", "Less burn."],
+      "narration": "So I built an open source harness that cuts the burn, without capping Fable's reasoning."
+    },
+    {
+      "id": 3,
+      "slide": ["Fable =", "design + final review", "", "Sonnet & Haiku =", "implementation & research"],
+      "narration": "Fable does design and final review only. Implementation and research are delegated to Sonnet and Haiku."
+    },
+    {
+      "id": 4,
+      "slide": ["Short, dense reports", "", "Usage ledger =", "waste in numbers"],
+      "narration": "Reports come back short and dense. A usage ledger shows your waste in actual numbers."
+    },
+    {
+      "id": 5,
+      "slide": ["Security is", "never skimped", "", "Claude Code + Codex", "1 command in / out"],
+      "narration": "It never skimps on security. Works with Claude Code and Codex. One command to install, one to remove."
+    },
+    {
+      "id": 6,
+      "slide": ["FREE on GitHub", "", "sho-ikeda-ai /", "token-engineering-", "harness"],
+      "narration": "Free, on GitHub. Link below. Token Engineering Harness."
+    }
+  ]
+}
