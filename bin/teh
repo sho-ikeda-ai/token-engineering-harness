@@ -26,7 +26,7 @@ const table = {
   },
   help: () => {
     console.log([
-      'teh - Token Engineering Harness (v0.1.1)',
+      'teh - Token Engineering Harness (v0.1.2)',
       '',
       '  doctor                  environment + install health + drift check',
       '  status                  live session counters, ledger tail, guard state',

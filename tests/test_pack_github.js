@@ -1,7 +1,7 @@
 'use strict';
 const { test } = require('node:test');
 const assert = require('node:assert');
-const { SECRET_RULES, TRACE_RULES, scan } = require('../lib/teh/packgithub');
+const { SECRET_RULES, TRACE_RULES, scan, stripLocalOnlyBlocks } = require('../lib/teh/packgithub');
 
 function hit(rules, name, sample) {
   const r = rules.find((x) => x.name === name);
@@ -33,6 +33,30 @@ test('trace rules catch personal-environment strings built at runtime', () => {
   assert.ok(hit(TRACE_RULES, 'owner-name', owner + ' says hi'));
   assert.ok(!TRACE_RULES.some((r) => r.re.test('C:/Users/alice/.claude')),
     'other users are not traces');
+});
+
+test('stripLocalOnlyBlocks removes marked content, keeps the rest', () => {
+  const owner = String.fromCharCode(0x6c60, 0x7530);
+  const text = [
+    'keep line 1',
+    '<!-- LOCAL-ONLY:START (why) -->',
+    'personal note about ' + owner,
+    'C:\\Users\\PC_User\\secret\\path',
+    '<!-- LOCAL-ONLY:END -->',
+    'keep line 2',
+  ].join('\n');
+  const stripped = stripLocalOnlyBlocks(text);
+  assert.ok(stripped.includes('keep line 1') && stripped.includes('keep line 2'));
+  assert.ok(!stripped.includes(owner) && !stripped.includes('PC_User'));
+});
+
+test('scan ignores personal traces inside LOCAL-ONLY blocks', () => {
+  const owner = String.fromCharCode(0x6c60, 0x7530);
+  const rule = TRACE_RULES.find((r) => r.name === 'owner-name');
+  assert.ok(rule.re.test(owner + ' outside a block'), 'sanity: rule fires normally');
+  const wrapped = '<!-- LOCAL-ONLY:START -->\n' + owner + '\n<!-- LOCAL-ONLY:END -->';
+  const stripped = stripLocalOnlyBlocks(wrapped);
+  assert.ok(!rule.re.test(stripped), 'wrapped content is removed before scanning');
 });
 
 test('the repo itself scans clean (excluding local-only files)', () => {

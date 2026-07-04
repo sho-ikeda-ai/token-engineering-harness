@@ -34,7 +34,7 @@ pressure on the top model degrades quality — TEH suggests, humans decide.
 
 ```bash
 git clone <this repo> && cd token-engineering-harness
-node --test tests/test_*.js        # 26 tests, no dependencies
+node --test tests/test_*.js        # 36 tests, no dependencies
 node bin/teh install --dry-run     # review the exact plan
 node bin/teh install               # backup -> copy -> marker blocks -> hooks
 node bin/teh doctor                # health + drift check
@@ -67,8 +67,28 @@ teh doctor | status | ledger [--month YYYY-MM]
 teh audit-context | audit-mcp | audit-skills
 teh install [--dry-run] [--profile P] [--enable-guard] | uninstall [--dry-run]
 teh guard on|off|status
+teh impact [--days N] [--install ISO] [--png]   # before/after dashboard
 teh pack-github        # pre-publication secret/personal-trace scan
 ```
+
+## Measuring the effect: `teh impact`
+
+TEH's own hooks only start counting from install day, so before/after needs a longer
+memory: `teh impact` reads real per-message token usage straight from Claude Code's
+session transcripts (`~/.claude/projects/*/*.jsonl`) and splits it at your install
+timestamp — no separate baseline collection step needed.
+
+```bash
+node bin/teh impact              # writes impact.html + impact-data.json
+node bin/teh impact --png        # + teh-impact-wide.png (1600x900) and
+                                  #   teh-impact-story.png (1080x1920) for sharing
+```
+
+Output goes to `~/.token-engineering-harness/impact/`. Charts show daily output
+tokens by model family with your install date marked, output-tokens-per-message,
+and top-model share over time. While the "after" sample is small, both the HTML
+and the PNGs label it `observation period` rather than overstating an early trend.
+Wire `teh impact` (or `--png`) into a daily scheduled task to keep it current.
 
 ## Optional integrations
 

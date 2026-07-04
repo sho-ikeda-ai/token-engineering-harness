@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.1.2 (2026-07-04)
+
+- New: `teh impact` — aggregates real token usage from Claude Code transcripts into
+  a before/after dashboard (impact.html: KPI cards + 3 charts, install-date marker)
+  and `teh impact --png` (wide 1600x900 + vertical story 1080x1920 for X/GitHub/Shorts).
+  Small-sample periods are labeled "observation period" on both the HTML and images.
+- New: `scripts/strip-local-only.js` + `<!-- LOCAL-ONLY:START/END -->` marker
+  convention — lets machine-specific notes (e.g. a cross-agent messaging hook a
+  local automation adds to every repo's CLAUDE.md) live in the repo without
+  breaking `pack-github`'s public-clean guarantee.
+- Fix: report-budget-controller now forbids step-by-step narration before tool
+  calls and unsolicited supplements (usage tips, file sizes) unless asked.
+
 ## v0.1.1 (2026-07-04)
 
 - New: UserPromptSubmit policy bridge — injects the token policy ONCE per session,
