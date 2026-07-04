@@ -142,3 +142,29 @@ test('bin/teh impact runs end-to-end and writes impact-data.json + impact.html',
   assert.ok(!html.includes('<script src'), 'no external script tags');
   assert.ok(!html.toLowerCase().includes('cdn'), 'no cdn references');
 });
+
+test('bin/teh impact --png writes two PNGs (skipped if python unavailable)', (t) => {
+  const pyCheck = spawnSync('python', ['--version'], { encoding: 'utf8' });
+  if (pyCheck.error || pyCheck.status !== 0) {
+    t.skip('python not available on this machine');
+    return;
+  }
+
+  const { root, claude } = sandboxClaudeDir();
+  const tehHome = path.join(root, 'teh-home');
+  const env = Object.assign({}, process.env, {
+    CLAUDE_DIR: claude,
+    TEH_HOME: tehHome,
+  });
+
+  const r = spawnSync('node', [TEH_BIN, 'impact', '--days', '365',
+    '--install', '2026-07-02T00:00:00.000Z', '--png'], { env, encoding: 'utf8' });
+  assert.strictEqual(r.status, 0, r.stdout + r.stderr);
+
+  const widePath = path.join(tehHome, 'impact', 'teh-impact-wide.png');
+  const storyPath = path.join(tehHome, 'impact', 'teh-impact-story.png');
+  assert.ok(fs.existsSync(widePath), 'teh-impact-wide.png written');
+  assert.ok(fs.existsSync(storyPath), 'teh-impact-story.png written');
+  assert.ok(fs.statSync(widePath).size > 5000, 'wide png is >5KB');
+  assert.ok(fs.statSync(storyPath).size > 5000, 'story png is >5KB');
+});
