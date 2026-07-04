@@ -12,7 +12,9 @@ const lib = require('./lib');
 const POLICY = '[TEH policy] Delegate implementation work to the '
   + 'implementation-worker-sonnet subagent (write a short task spec first); use '
   + 'codebase-scout-cheap for searches; keep reports <=15 lines with numbers + '
-  + 'evidence paths; never paste full logs/diffs. Savings never apply to '
+  + 'evidence paths; never paste full logs/diffs; max ONE short sentence before '
+  + 'a tool call (no step narration); no unsolicited tips or supplements - '
+  + 'deliver the thing, not the manual. Savings never apply to '
   + 'security/DB/auth/billing/audit/prod/data-loss work - top model + full '
   + 'verification there. An explicit user model/effort instruction always wins. '
   + 'Details: ~/.claude/skills/model-effort-router/SKILL.md';
