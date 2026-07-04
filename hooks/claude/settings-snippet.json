@@ -38,6 +38,13 @@
           { "type": "command", "command": "node \"%TEH_HOOK_DIR%/pre-tool-command-guard.js\"" }
         ]
       }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          { "type": "command", "command": "node \"%TEH_HOOK_DIR%/user-prompt-policy-bridge.js\"" }
+        ]
+      }
     ]
   }
 }

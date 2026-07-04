@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.1.1 (2026-07-04)
+
+- New: UserPromptSubmit policy bridge — injects the token policy ONCE per session,
+  so sessions already in flight (started before install/upgrade) pick up the policy
+  on their next prompt instead of waiting for a restart.
+
 ## v0.1.0 (2026-07-04)
 
 Initial release.

@@ -109,3 +109,16 @@ test('pre-compact prints the summary structure', () => {
   assert.strictEqual(r.status, 0);
   assert.ok(r.stdout.includes('Do-not-carry-forward'));
 });
+
+test('policy bridge: injects once per session, then stays silent', () => {
+  const tmp = mkTmp();
+  const payload = { session_id: 'br1', prompt: 'hello' };
+  let r = runHook('user-prompt-policy-bridge.js', payload, tmp);
+  assert.strictEqual(r.status, 0);
+  assert.ok(r.stdout.includes('[TEH policy]'), 'first prompt gets the policy line');
+  r = runHook('user-prompt-policy-bridge.js', payload, tmp);
+  assert.strictEqual(r.status, 0);
+  assert.strictEqual(r.stdout.trim(), '', 'second prompt is silent');
+  r = runHook('user-prompt-policy-bridge.js', { session_id: 'br2', prompt: 'x' }, tmp);
+  assert.ok(r.stdout.includes('[TEH policy]'), 'a different session gets its own injection');
+});

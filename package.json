@@ -1,6 +1,6 @@
 {
   "name": "token-engineering-harness",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Cut wasted LLM tokens in Claude Code & Codex without cutting quality",
   "license": "MIT",
